@@ -1,0 +1,88 @@
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+#define MAX 100
+typedef struct{
+	  char maCH[20];
+	  char diaChi[31];
+	  int soNhanVien;
+	  int doanhso;
+}CuaHang;
+void nhapMaCuaHang(char *ma){
+	int hople;
+	do{
+		hople = 1;
+		printf("Nhap ma cua hang (chi chua so): ");
+		scanf("%s", ma);
+		int i;
+		for(i = 0; i< strlen(ma); i++){
+			if(!isdigit(ma[i])){
+				hople = 0;
+				break;
+			}
+		}
+		if(!hople){
+			printf("Ma khong hop le, Vui long nhap lai!\n");
+		}
+	}while(!hople);
+}
+void nhapDanhSach(CuaHang ds[], int *n){
+	do{
+		printf("Nhap so luong cua hang (N > 0): ");
+		scanf("%d", n);
+	}while (*n <= 0);
+	int i;
+	for( i = 0; i < *n; i++){
+		printf("\n--- Nhap thong tin cua hang thu %d ---\n", i + 1);
+		nhapMaCuaHang(ds[i].maCH);
+		getchar();
+		do{
+			printf("Nhap dia chi ( toi da 30 ky tu): ");
+			fgets(ds[i].diaChi, 31, stdin);
+			ds[i].diaChi[strcspn(ds[i].diaChi, "\n")] = '\0';
+		}while(strlen(ds[i].diaChi) == 0);
+		do{
+			printf("Nhap so nhan vien (>0): ");
+			scanf("%d", &ds[i].soNhanVien);
+		}while (ds[i].soNhanVien <= 0);
+		do{
+			printf("Nhap doanh so (>=0)");
+			scanf("%d", &ds[i].doanhso);
+		}while(ds[i].doanhso < 0);
+	}
+}
+void inDanhSach(CuaHang ds[], int n){
+	printf("+---+------+--------------+------------+-----------------------------+\n");
+	printf("|%-3s|%-6s|%-14s|%-12s|%-29s|\n", "STT", "MaCH", " So nhan vien", "Doanh so", "Dia chi");
+	int i;
+	for(i = 0; i < n ; i++){
+		printf("+---+------+--------------+------------+-----------------------------+\n");
+		printf("|%-3d|%-6s|%-14d|%-12d|%-29s|\n", i+1, ds[i].maCH, ds[i].soNhanVien, ds[i].doanhso, ds[i].diaChi);
+	}
+		printf("+---+------+--------------+------------+-----------------------------+\n");
+}
+void sapXepGiamDan(CuaHang ds[], int n){
+	int i;
+	int j;
+	for(i =0; i< n - 1; i++){
+		for(j= i+1; j <n; j++){
+			if(ds[i].doanhso < ds[j].doanhso){
+				CuaHang temp = ds[i];
+				ds[i] = ds[j];
+				ds[j] = temp;
+			}
+		}
+	}
+}
+int main(){
+	CuaHang ds[MAX];
+	int n;
+	nhapDanhSach(ds, &n);
+	printf("|n=== DANH SACH BAN DAU ===\n");
+	inDanhSach(ds, n);
+	sapXepGiamDan(ds, n);
+	printf("\n=== DANH SACH SAU KHI SAP XEP GIAM DAN THEO DOANH SO ===\n");
+	inDanhSach(ds, n);
+	return 0;
+}
+
