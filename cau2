@@ -78,7 +78,7 @@ int main(){
 	CuaHang ds[MAX];
 	int n;
 	nhapDanhSach(ds, &n);
-	printf("|\n=== DANH SACH BAN DAU ===\n");
+	printf("\n=== DANH SACH BAN DAU ===\n");
 	inDanhSach(ds, n);
 	sapXepGiamDan(ds, n);
 	printf("\n=== DANH SACH SAU KHI SAP XEP GIAM DAN THEO DOANH SO ===\n");
