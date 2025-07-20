@@ -46,7 +46,7 @@ void nhapDanhSach(CuaHang ds[], int *n){
 			scanf("%d", &ds[i].soNhanVien);
 		}while (ds[i].soNhanVien <= 0);
 		do{
-			printf("Nhap doanh so (>=0)");
+			printf("Nhap doanh so (>=0): ");
 			scanf("%d", &ds[i].doanhso);
 		}while(ds[i].doanhso < 0);
 	}
@@ -78,7 +78,7 @@ int main(){
 	CuaHang ds[MAX];
 	int n;
 	nhapDanhSach(ds, &n);
-	printf("|n=== DANH SACH BAN DAU ===\n");
+	printf("|\n=== DANH SACH BAN DAU ===\n");
 	inDanhSach(ds, n);
 	sapXepGiamDan(ds, n);
 	printf("\n=== DANH SACH SAU KHI SAP XEP GIAM DAN THEO DOANH SO ===\n");
